@@ -1,0 +1,17 @@
+version: '3.3'
+services:
+  vault:
+    image: hashicorp/vault
+    container_name: vault
+    ports:
+      - "8200:8200"
+    restart: always
+    volumes:
+      - ./vault/config:/vault/config
+      - ./vault/file:/vault/file
+      - ./vault/logs:/vault/logs
+    networks:  
+      - dev-network
+    cap_add:
+      - IPC_LOCK
+    entrypoint: vault server -config=/vault/config/vault.hcl
